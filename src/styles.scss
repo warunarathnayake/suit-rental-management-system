@@ -1,0 +1,317 @@
+// ============================================================
+// Root Stylesheet - TailorFlow (Aithusa (PVT) LTD.)
+// Exact Theme Replication from Process Management System (PMS)
+// Light BG (#f0f2f5) + Dark & Secondary Component Theme
+// ============================================================
+
+// 1. Shared Theme Variables
+@import './styles/variables';
+
+// 2. Bootstrap variable overrides (before importing Bootstrap)
+$body-bg:            $theme-bg;
+$body-color:         $dark-primary;
+$primary:            $dark-primary;
+$secondary:          $dark-muted;
+$form-check-input-bg: #ffffff;
+$font-family-sans-serif: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+// Native Tooltip Overrides (Solid Black & High Contrast)
+$tooltip-bg:         #000000;
+$tooltip-color:      #ffffff;
+$tooltip-opacity:    1;
+$tooltip-padding-y:  0.28rem;
+$tooltip-padding-x:  0.6rem;
+$tooltip-font-size:  0.72rem;
+
+// 3. Import Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// 4. Shared Theme Mixins & Utilities
+@import './styles/mixins';
+
+// ── Global Resets ──────────────────────────────────────────
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: $body-bg;
+}
+
+body {
+  font-family: $font-family-sans-serif;
+  font-size: 0.875rem;
+  color: $body-color;
+  background: $body-bg;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// ── App Shell Layout ───────────────────────────────────────
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $theme-bg;
+}
+
+.app-main-container {
+  display: flex;
+  flex-grow: 1;
+}
+
+.sidebar-wrapper {
+  width: 235px;
+  min-width: 235px;
+  background: $theme-bg;
+  border-right: none;
+}
+
+.panel-wrapper {
+  flex-grow: 1;
+  min-width: 0;
+  padding: 1rem 1.5rem 1.5rem 0.5rem;
+}
+
+// ── Page Header Standard ───────────────────────────────────
+.page-header {
+  .page-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $dark-primary;
+    letter-spacing: -0.01em;
+  }
+
+  .page-subtitle {
+    font-size: 0.8125rem;
+    color: $dark-muted;
+  }
+}
+
+// ── Search & Filter Bar Component (PMS Style) ──────────────
+.filter-bar {
+  .search-wrapper {
+    position: relative;
+    min-width: 260px;
+
+    .search-input {
+      @include pms-form-control;
+      padding-left: 2.25rem;
+      padding-right: 2.25rem;
+      border-radius: 8px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $dark-muted;
+      font-size: 0.88rem;
+      line-height: 1;
+      z-index: 5;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .search-clear-btn {
+      position: absolute;
+      right: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0;
+      color: $dark-muted;
+      font-size: 0.95rem;
+      line-height: 1;
+      z-index: 5;
+      text-decoration: none;
+      border: 0;
+      background: transparent;
+      transition: color 0.15s ease-in-out;
+
+      &:hover {
+        color: $dark-primary;
+      }
+    }
+  }
+
+  .status-filter {
+    .btn {
+      min-width: 72px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      border-color: $border-color;
+      color: $dark-secondary;
+
+      &.active, &:hover {
+        background-color: $dark-primary;
+        border-color: $dark-primary;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+// ── Table Card (PMS White Surface + Rounded 12px) ──────────
+.table-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid $border-light;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+
+  .table {
+    --bs-table-bg: #ffffff;
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.025);
+  }
+
+  thead tr th {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $dark-muted;
+    border-bottom: 1px solid $border-light;
+    white-space: nowrap;
+  }
+
+  thead tr th:first-child,
+  tbody tr th:first-child,
+  tbody tr td:first-child {
+    padding-left: 1.25rem;
+  }
+
+  tbody tr td {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-size: 0.825rem;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  }
+}
+
+// ── Avatar: Solid Black Circle with White Icon/Text ────────
+.avatar,
+.category-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+// ── Code Badge ─────────────────────────────────────────────
+.code-badge {
+  background-color: $dark-primary;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+// ── Status Badges ──────────────────────────────────────────
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  user-select: none;
+
+  &.status-active, &.status-available, &.status-completed {
+    background: #dcfce7;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+  }
+
+  &.status-reserved {
+    background: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+  }
+
+  &.status-alteration {
+    background: #fef3c7;
+    color: #b45309;
+    border: 1px solid #fde68a;
+  }
+
+  &.status-rented {
+    background: #ede9fe;
+    color: #6d28d9;
+    border: 1px solid #ddd6fe;
+  }
+
+  &.status-cleaning {
+    background: #ffedd5;
+    color: #c2410c;
+    border: 1px solid #fed7aa;
+  }
+
+  &.status-inactive, &.status-overdue, &.status-damaged {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+  }
+}
+
+// ── Action Buttons ─────────────────────────────────────────
+.btn-dark-pms {
+  @include pms-button-dark;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+}
+
+.btn-outline-dark {
+  border-color: $border-color;
+  color: $dark-primary;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.15s ease-in-out;
+
+  &:hover {
+    background-color: $dark-primary;
+    border-color: $dark-primary;
+    color: #ffffff;
+  }
+}
+
+// ── Custom Forms & Modals ──────────────────────────────────
+.modal-content {
+  border-radius: 12px;
+  background-color: $bg-surface;
+  border: 1px solid $border-light;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+
+  .modal-title {
+    color: $dark-primary;
+    font-size: 1.05rem;
+  }
+
+  .form-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: $dark-primary;
+    margin-bottom: 0.35rem;
+  }
+
+  .form-control,
+  .form-select {
+    @include pms-form-control;
+  }
+}

@@ -1,0 +1,147 @@
+// ============================================================
+// PMS Theme Mixins & Utility Classes - Suit Rental System
+// Replicated from Process Management System
+// ============================================================
+
+// ── Mixins ──────────────────────────────────────────────────
+@mixin pms-logo-circle($size: 52px, $font-size: 0.95rem) {
+  width: $size;
+  height: $size;
+  background: $logo-circle-bg;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: $logo-circle-color;
+  font-size: $font-size;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  flex-shrink: 0;
+  box-shadow: $shadow-brand;
+}
+
+@mixin pms-button-dark {
+  background-color: $dark-primary;
+  border-color: $dark-primary;
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 2px 8px rgba(26, 31, 46, 0.2);
+  transition: background-color 0.2s, box-shadow 0.2s, transform 0.15s;
+
+  &:hover:not(:disabled) {
+    background-color: $dark-hover;
+    border-color: $dark-hover;
+    box-shadow: 0 4px 14px rgba(26, 31, 46, 0.28);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    background-color: $dark-active;
+    border-color: $dark-active;
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    background-color: $text-placeholder;
+    border-color: $text-placeholder;
+    cursor: not-allowed;
+  }
+}
+
+@mixin pms-form-control {
+  border-color: $border-color;
+  background-color: $bg-surface;
+  color: $dark-primary;
+  font-size: 0.82rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &::placeholder {
+    color: $text-placeholder;
+  }
+
+  &:focus {
+    border-color: $dark-primary;
+    background-color: $bg-surface;
+    color: $dark-primary;
+    box-shadow: $focus-ring;
+  }
+}
+
+// ── Common Classes ──────────────────────────────────────────
+.pms-logo-circle {
+  @include pms-logo-circle(52px, 0.95rem);
+
+  &.sm {
+    @include pms-logo-circle(36px, 0.75rem);
+  }
+  &.xs {
+    @include pms-logo-circle(28px, 0.62rem);
+  }
+  &.lg {
+    @include pms-logo-circle(64px, 1.15rem);
+  }
+}
+
+.pms-card {
+  background: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+}
+
+.pms-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: $bg-surface;
+  border: 1px solid $border-light;
+  border-radius: 20px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.72rem;
+  color: $dark-primary;
+  font-weight: 500;
+  box-shadow: $shadow-sm;
+  transition: all 0.2s;
+
+  i {
+    font-size: 0.78rem;
+    color: $dark-muted;
+  }
+
+  &:hover {
+    background: $bg-surface-subtle;
+    border-color: $border-color;
+    color: #0f172a;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+
+    i {
+      color: $dark-primary;
+    }
+  }
+}
+
+.pms-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: $bg-surface-subtle;
+  border: 1px solid $border-light;
+  border-left: 3px solid $dark-primary;
+  border-radius: 7px;
+  padding: 0.6rem 0.8rem;
+  color: $dark-muted;
+  line-height: 1.5;
+
+  small {
+    font-size: 0.72rem;
+  }
+
+  i {
+    color: $dark-primary;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+}
