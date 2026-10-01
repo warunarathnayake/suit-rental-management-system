@@ -1,0 +1,136 @@
+<div class="login-wrapper d-flex align-items-center justify-content-center min-vh-100 py-2 px-3">
+  <div class="login-container w-100 my-auto">
+
+    <!-- Top Brand Header -->
+    <div class="text-center mb-3">
+      <div class="d-inline-flex align-items-center justify-content-center mb-2">
+        <div class="pms-logo-circle lg shadow-sm">Tf.</div>
+      </div>
+      <h3 class="fw-bold brand-title mb-1 text-dark">TailorFlow</h3>
+      <p class="brand-subtitle mb-0 text-secondary">Suit Rental &amp; Bespoke Process Management System</p>
+    </div>
+
+    <!-- Login Card (PMS Surface) -->
+    <div class="card login-card shadow-sm border-0 rounded-4 w-100 pms-card">
+      <div class="card-body p-4 p-sm-4 d-flex flex-column">
+
+        <!-- Header -->
+        <div class="mb-3 text-start">
+          <h5 class="form-title fw-bold mb-1">Welcome back</h5>
+          <p class="mb-0 text-black-50 small fw-medium">Sign in to your account to continue</p>
+        </div>
+
+        <!-- Login Form -->
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="text-start" novalidate>
+          
+          <!-- Email Field -->
+          <div class="mb-3 pb-1">
+            <label for="email" class="form-label form-label-sm">Email</label>
+            <div class="input-group input-group-sm has-validation">
+              <span class="input-group-text">
+                <i class="bi bi-envelope"></i>
+              </span>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control form-control-sm"
+                [class.is-invalid]="email.invalid && (email.touched || submitted)"
+                placeholder="Enter your email"
+                autocomplete="email"
+              >
+              <div class="invalid-feedback">
+                <span *ngIf="email.errors?.['required']">
+                  <i class="bi bi-exclamation-circle me-1"></i>Email is required.
+                </span>
+                <span *ngIf="email.errors?.['email']">
+                  <i class="bi bi-exclamation-circle me-1"></i>Enter a valid email address.
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Password Field -->
+          <div class="mb-4">
+            <label for="password" class="form-label form-label-sm">Password</label>
+            <div class="input-group input-group-sm has-validation">
+              <span class="input-group-text">
+                <i class="bi bi-lock"></i>
+              </span>
+              <div class="pass-wrap" [class.is-invalid]="(password.invalid && (password.touched || submitted)) || serverError">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  id="password"
+                  formControlName="password"
+                  class="form-control form-control-sm pass-input"
+                  [class.is-invalid]="(password.invalid && (password.touched || submitted)) || serverError"
+                  placeholder="Enter your password"
+                  autocomplete="current-password"
+                >
+                <!-- Eye icon inside password input -->
+                <span class="eye-icon" (click)="togglePasswordVisibility()">
+                  <i [class]="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+                </span>
+              </div>
+              <div class="invalid-feedback">
+                <span *ngIf="password.errors?.['required']">
+                  <i class="bi bi-exclamation-circle me-1"></i>Password is required.
+                </span>
+                <span *ngIf="serverError">
+                  <i class="bi bi-exclamation-circle me-1"></i>{{ serverError }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sign In Button (PMS Rounded Pill Style) -->
+          <button
+            type="submit"
+            class="btn btn-dark btn-sm w-100 rounded-pill shadow-sm login-btn py-2"
+            [disabled]="isLoading"
+          >
+            <ng-container *ngIf="!isLoading; else loadingTpl">
+              <i class="bi bi-shield-lock me-1"></i> Sign In
+            </ng-container>
+            <ng-template #loadingTpl>
+              <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+              Authenticating...
+            </ng-template>
+          </button>
+
+        </form>
+
+        <!-- System Access Note (PMS Style) -->
+        <div class="card-bottom-section mt-3 pt-1 d-flex flex-column text-start">
+          <div class="d-flex align-items-center text-uppercase my-2 system-access-divider">
+            <hr class="flex-grow-1 my-0 me-2 border-secondary-subtle opacity-50">
+            <span class="system-access-title">System Access</span>
+            <hr class="flex-grow-1 my-0 ms-2 border-secondary-subtle opacity-50">
+          </div>
+
+          <div class="access-note mb-0">
+            <i class="bi bi-shield-lock-fill"></i>
+            <small>Access is restricted to authorized personnel only. Contact help desk for credentials.</small>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Security & Status Footer Info -->
+    <div class="mt-3 text-center">
+      <div class="d-inline-flex align-items-center gap-2 pms-chip py-1 px-3">
+        <span class="status-indicator-dot" [class.connected]="isSupabaseLive" [class.demo]="!isSupabaseLive"></span>
+        <span style="font-size: 0.72rem;">
+          {{ isSupabaseLive ? 'Supabase Live Auth Active' : 'Demo Mode Active' }}
+        </span>
+        <span class="text-secondary opacity-50">&bull;</span>
+        <span class="text-muted" style="font-size: 0.72rem;">256-Bit TLS Secured</span>
+      </div>
+      <div class="small text-muted mt-1" style="font-size: 0.7rem;">
+        &copy; 2026 TailorFlow (Aithusa PVT LTD). All rights reserved.
+      </div>
+    </div>
+
+  </div>
+</div>

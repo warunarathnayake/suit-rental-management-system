@@ -48,6 +48,15 @@ body {
 }
 
 // ── App Shell Layout ───────────────────────────────────────
+body:has(app-login) {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  &::-webkit-scrollbar {
+    display: none !important;
+  }
+}
+
 .app-shell {
   min-height: 100vh;
   display: flex;
