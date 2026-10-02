@@ -1,0 +1,76 @@
+<aside class="app-sidebar d-flex flex-column h-100 py-3 px-2">
+  <nav class="sidebar-nav flex-grow-1">
+    
+    <div *ngFor="let group of menuGroups; let first = first" class="menu-group" [class.mt-3]="!first">
+      
+      <!-- Group Title in Capital Letters -->
+      <div *ngIf="group.title" class="menu-group-header px-2 py-1">
+        <span class="group-title text-uppercase">{{ group.title }}</span>
+      </div>
+
+      <ul class="nav flex-column gap-1 list-unstyled m-0 p-0">
+        
+        <li *ngFor="let item of group.items" class="nav-item">
+          
+          <!-- CASE 1: Main Menu Item WITH Children (Expandable) -->
+          <ng-container *ngIf="item.children && item.children.length > 0; else singleItemTpl">
+            
+            <button
+              type="button"
+              class="nav-link menu-item main-menu-item d-inline-flex align-items-center gap-2 border-0 bg-transparent text-start"
+              [class.is-expanded]="item.expanded"
+              (click)="item.expanded = !item.expanded">
+              
+              <!-- Left Side: Domain Icon + Main Menu Name -->
+              <span class="icon-slot">
+                <i class="bi menu-icon" [ngClass]="item.icon"></i>
+              </span>
+              <span class="menu-label">{{ item.label }}</span>
+            </button>
+
+            <!-- Submenu Tree: Smooth Expand & Collapse Accordion -->
+            <div class="submenu-tree-container" [class.is-expanded]="item.expanded">
+              <div class="submenu-tree-inner">
+                <ul class="submenu-tree list-unstyled m-0 p-0">
+                  <li *ngFor="let sub of item.children" class="submenu-item-wrap">
+                    <a
+                      [routerLink]="sub.route"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      class="submenu-link d-inline-flex align-items-center gap-2 text-decoration-none">
+                      <span class="icon-slot dot-slot">
+                        <span class="tree-bullet-dot"></span>
+                      </span>
+                      <span class="submenu-label">{{ sub.label }}</span>
+                      <span *ngIf="sub.badge" class="badge rounded-pill ms-auto submenu-badge">{{ sub.badge }}</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          </ng-container>
+
+          <!-- CASE 2: Single Main Menu Item WITHOUT Children (Direct Link) -->
+          <ng-template #singleItemTpl>
+            <a
+              [routerLink]="item.route"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
+              class="nav-link menu-item main-menu-item d-inline-flex align-items-center gap-2 border-0 bg-transparent text-start text-decoration-none">
+              <span class="icon-slot">
+                <i class="bi menu-icon" [ngClass]="item.icon"></i>
+              </span>
+              <span class="menu-label">{{ item.label }}</span>
+              <span *ngIf="item.badge" class="badge rounded-pill ms-auto menu-badge">{{ item.badge }}</span>
+            </a>
+          </ng-template>
+
+        </li>
+
+      </ul>
+
+    </div>
+
+  </nav>
+</aside>
